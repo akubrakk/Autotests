@@ -23,7 +23,6 @@ public class BaseTest {
     @BeforeTest
     public void start() {
 
-        System.setProperty("webdriver.chrome.driver", "C:/Users/a.kubrak/Downloads/chromedriver_win32/chromedriver.exe");
         driver = WebDriverFactory.getDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
