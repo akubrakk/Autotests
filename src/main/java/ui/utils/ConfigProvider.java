@@ -11,6 +11,7 @@ public final class ConfigProvider {
     public static final String BROWSER = prop.getProperty("browser");
 
     public static final String BASE_URL = prop.getProperty("base.url");
+    public static final String SITE_URL = prop.getProperty("site.url");
 
     private ConfigProvider(){
     }
