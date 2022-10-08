@@ -10,19 +10,15 @@ import ui.utils.ConfigProvider;
 public class WebDriverFactory {
 
     private static final String BROWSER = System.getProperty("browser", ConfigProvider.BROWSER);
+    private WebDriver driver;
 
-    private static WebDriver driver;
-
-
-
-    public static WebDriver getDriver(){
-        driver = getDriver(Browser.valueOf(ConfigProvider.BROWSER.toUpperCase()));
-      return driver;
+    public WebDriver getDriver() {
+        driver = getDriver(Browser.valueOf(BROWSER.toUpperCase()));
+        return driver;
     }
 
-
-    private static WebDriver getDriver(Browser browser){
-        switch (browser){
+    private WebDriver getDriver(Browser browser) {
+        switch (browser) {
             case CHROME:
                 return getChromeDriver();
             case FIREFOX:
@@ -32,15 +28,16 @@ public class WebDriverFactory {
         }
     }
 
-    private static WebDriver getFirefoxDriver() {
+    private WebDriver getFirefoxDriver() {
         if (driver == null) {
             WebDriverManager.firefoxdriver().setup();
             driver = new FirefoxDriver();
         }
         return driver;
     }
-    private static WebDriver getChromeDriver() {
-        if(driver== null){
+
+    private WebDriver getChromeDriver() {
+        if (driver == null) {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }

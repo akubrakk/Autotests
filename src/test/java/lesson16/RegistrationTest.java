@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import ua.ithillel.ui.BaseTest;
 import ui.browser.WebDriverFactory;
 import ui.utils.ConfigProvider;
 
@@ -16,19 +17,7 @@ import java.util.Random;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 
-public class RegistrationTest {
-
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-
-
-    @BeforeTest
-    public void start() {
-
-        driver = WebDriverFactory.getDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-    }
+public class RegistrationTest extends BaseTest {
 
     @Test
     public void registerWithValidData() {
@@ -55,13 +44,6 @@ public class RegistrationTest {
             .mapToObj(c -> (char)c).collect(StringBuffer::new, StringBuffer::append, StringBuffer::append)
 
             .toString();
-
-    @AfterTest
-    public void stop() {
-        driver.close();
-        driver.quit();
-    }
-
 
 
 }

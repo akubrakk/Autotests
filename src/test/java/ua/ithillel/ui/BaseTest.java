@@ -17,23 +17,16 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 public class BaseTest {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    public WebDriver driver;
+    public WebDriverWait wait;
 
     @BeforeTest
     public void start() {
 
-        driver = WebDriverFactory.getDriver();
+        driver = new WebDriverFactory().getDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
-    @Test
-    public void test() {
-        driver.get(ConfigProvider.BASE_URL);
-        driver.findElement(By.name("q")).sendKeys("webdriver");
-        driver.findElements(By.name("btnK")).get(1).click();
-        wait.until(titleIs("webdriver - Поиск в Google"));
-        Assert.assertEquals(driver.getTitle(),"webdriver - Поиск в Google");
-    }
+
     @AfterTest
     public void stop() {
         driver.close();

@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import ua.ithillel.ui.BaseTest;
 import ui.browser.WebDriverFactory;
 import ui.utils.ConfigProvider;
 
@@ -15,18 +16,8 @@ import java.util.Random;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
-public class LoginTest {
+public class LoginTest extends BaseTest {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
-
-    @BeforeTest
-    public void start() {
-
-        driver = WebDriverFactory.getDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-    }
 
     @Test
     public void loginAsExistedUser() {
@@ -57,11 +48,6 @@ public class LoginTest {
     }
 
 
-    @AfterTest
-    public void stop() {
-        driver.close();
-        driver.quit();
-    }
     public String generateRandomString() {
 
         Random rand = new Random();
