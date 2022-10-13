@@ -9,6 +9,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ua.ithillel.ui.BaseTest;
 import ui.browser.WebDriverFactory;
+import ui.model.User;
+import ui.pages.MainPage;
 import ui.utils.ConfigProvider;
 
 import java.time.Duration;
@@ -22,27 +24,23 @@ public class LoginTest extends BaseTest {
     @Test
     public void loginAsExistedUser() {
 
-        String username = generateRandomString();
-        String password = generateRandomString();
+        MainPage mainPage = new MainPage(driver);
+        mainPage.open();
 
-        driver.get(ConfigProvider.SITE_URL);
-        driver.findElement(By.id("register")).click();
+        MainPage.RegisterForm registerForm = mainPage.clickRegisterLink();
         wait.until(visibilityOfElementLocated(By.id("register-modal")));
-        driver.findElement(By.id("register-username-modal")).sendKeys(username);
-        driver.findElement(By.id("register-first-modal")).sendKeys("firstname" + generateRandomString());
-        driver.findElement(By.id("register-last-modal")).sendKeys("lastname" + generateRandomString());
-        driver.findElement(By.id("register-email-modal")).sendKeys("testemail@" + generateRandomString() + "test.com");
-        driver.findElement(By.id("register-password-modal")).sendKeys(password);
-        driver.findElement(By.xpath("//*[@id=\"register-modal\"]/div/div/div[2]/form/p/button")).click();
+        User user = User.builder()
+                .buildRandomUser();
+        registerForm.fillRegisterForm(user);
         wait.until(visibilityOfElementLocated(By.id("logout")));
-        driver.findElement(By.id("logout")).click();
-        wait.until(visibilityOfElementLocated(By.id("login")));
-
-        driver.findElement(By.id("login")).click();
+        mainPage.clickLogoutLink();
+        MainPage.LoginForm loginForm = mainPage.clickLoginLink();
         wait.until(visibilityOfElementLocated(By.id("Login")));
-        driver.findElement(By.name("username")).sendKeys(username);
-        driver.findElement(By.id("password-modal")).sendKeys(password);
-        driver.findElement(By.xpath("//*[@id=\"login-modal\"]/div/div/div[2]/form/p/button")).click();
+        loginForm.fillLoginForm(user);
+
+//        driver.findElement(By.name("username")).sendKeys(username);
+//        driver.findElement(By.id("password-modal")).sendKeys(password);
+//        driver.findElement(By.xpath("//*[@id=\"login-modal\"]/div/div/div[2]/form/p/button")).click();
         Assert.assertEquals(driver.findElement(By.id("login-message")).getAttribute("textContent"),"Login successful.");
 
     }

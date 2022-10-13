@@ -1,6 +1,8 @@
 package ui.model;
 
 
+import com.github.javafaker.Faker;
+
 public class User {
 
     private String username;
@@ -16,6 +18,27 @@ public class User {
         this.email = email;
         this.password = password;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
      public static Builder builder(){
         return new Builder();
      }
@@ -52,8 +75,11 @@ public class User {
             return this;
         }
 
-        public User build(){
-            return new User(username, firstname, lastname, email, password);
-        }
+        public static User buildRandomUser(){
+            Faker faker = new Faker();
+
+           return new User(faker.name().username(),faker.name().firstName(),faker.name().lastName() , faker.internet().emailAddress(), faker.friends().character());
+      }
+
     }
 }
