@@ -75,7 +75,7 @@ public class User {
             return this;
         }
 
-        public static User buildRandomUser(){
+        public User buildRandomUser(){
             Faker faker = new Faker();
 
            return new User(faker.name().username(),faker.name().firstName(),faker.name().lastName() , faker.internet().emailAddress(), faker.friends().character());

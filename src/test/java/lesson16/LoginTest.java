@@ -11,6 +11,7 @@ import ua.ithillel.ui.BaseTest;
 import ui.browser.WebDriverFactory;
 import ui.model.User;
 import ui.pages.MainPage;
+import ui.pages.MainPageConstants;
 import ui.utils.ConfigProvider;
 
 import java.time.Duration;
@@ -28,38 +29,17 @@ public class LoginTest extends BaseTest {
         mainPage.open();
 
         MainPage.RegisterForm registerForm = mainPage.clickRegisterLink();
-        wait.until(visibilityOfElementLocated(By.id("register-modal")));
-        User user = User.builder()
-                .buildRandomUser();
+
+        User user = User.builder().buildRandomUser();
         registerForm.fillRegisterForm(user);
-        wait.until(visibilityOfElementLocated(By.id("logout")));
         mainPage.clickLogoutLink();
+
         MainPage.LoginForm loginForm = mainPage.clickLoginLink();
-        wait.until(visibilityOfElementLocated(By.id("Login")));
         loginForm.fillLoginForm(user);
 
-//        driver.findElement(By.name("username")).sendKeys(username);
-//        driver.findElement(By.id("password-modal")).sendKeys(password);
-//        driver.findElement(By.xpath("//*[@id=\"login-modal\"]/div/div/div[2]/form/p/button")).click();
-        Assert.assertEquals(driver.findElement(By.id("login-message")).getAttribute("textContent"),"Login successful.");
+        Assert.assertEquals(mainPage.getLoginLabel(), MainPageConstants.LOGIN_SUCCESSFUL);
 
     }
 
-
-    public String generateRandomString() {
-
-        Random rand = new Random();
-
-        String randString = rand.ints(48, 123)
-
-                .filter(num -> (num < 58 || num > 64) && (num < 91 || num > 96))
-
-                .limit(15)
-
-                .mapToObj(c -> (char) c).collect(StringBuffer::new, StringBuffer::append, StringBuffer::append)
-
-                .toString();
-        return randString;
-    }
 
 }

@@ -2,7 +2,6 @@ package ui.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import ui.element.TextField;
 import ui.model.User;
 import ui.utils.ConfigProvider;
 import ui.utils.WaitUtils;
@@ -11,11 +10,16 @@ public class MainPage extends Page{
 
     private By registerLink = By.id("register");
     private By loginLink = By.id("login");
+    private By loginModal = By.id("Login");
     private By logoutLink = By.id("logout");
+    private By loginMessage = By.id("login-message");
+    private By registerModal = By.id("register-modal");
+
 
     public MainPage(WebDriver driver) {
         super(driver);
     }
+
 
     @Override
     public void open() {
@@ -30,11 +34,14 @@ public class MainPage extends Page{
 
     public RegisterForm clickRegisterLink(){
         driver.findElement(registerLink).click();
+        WaitUtils.waitUntilElementIsVisible(driver, registerModal);
+
       return new RegisterForm();
     }
 
     public LoginForm clickLoginLink(){
         driver.findElement(loginLink).click();
+        WaitUtils.waitUntilElementIsVisible(driver, loginModal);
         return new LoginForm();
     }
 
@@ -42,6 +49,10 @@ public class MainPage extends Page{
         driver.findElement(logoutLink).click();
         return new LoginForm();
     }
+    public String getLoginLabel() {
+        return driver.findElement(loginMessage).getAttribute("textContent");
+    }
+
 
     public class RegisterForm{
         private By username = By.id("register-username-modal");
@@ -59,6 +70,7 @@ public class MainPage extends Page{
             driver.findElement(email).sendKeys(user.getEmail());
             driver.findElement(password).sendKeys(user.getPassword());
             driver.findElement(registerButton).click();
+            WaitUtils.waitUntilElementIsVisible(driver, logoutLink);
         }
 
         }
