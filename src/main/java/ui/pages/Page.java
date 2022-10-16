@@ -8,6 +8,8 @@ public abstract class Page {
 
     public Page(WebDriver driver){
         this.driver = driver;
-
     }
+    public abstract void open();
+
+    public abstract void ensureOpen();
 }
