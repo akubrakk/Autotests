@@ -2,11 +2,16 @@ package ui.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ui.model.User;
 import ui.utils.ConfigProvider;
 import ui.utils.WaitUtils;
 
+
 public class MainPage extends Page{
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(MainPage.class);
 
     private By registerLink = By.id("register");
     private By loginLink = By.id("login");
@@ -24,8 +29,10 @@ public class MainPage extends Page{
 
     @Override
     public void open() {
+        LOGGER.info("Attempt to open Main page");
         driver.get(ConfigProvider.SITE_URL);
         ensureOpen();
+        LOGGER.info("Main page is open");
     }
 
     @Override
@@ -36,26 +43,27 @@ public class MainPage extends Page{
     public RegisterForm clickRegisterLink(){
         driver.findElement(registerLink).click();
         WaitUtils.waitUntilElementIsVisible(driver, registerModal);
+        LOGGER.info("Click on register link");
 
       return new RegisterForm();
     }
 
     public LoginForm clickLoginLink(){
         driver.findElement(loginLink).click();
+        LOGGER.info("Click on login link");
         WaitUtils.waitUntilElementIsVisible(driver, loginModal);
         return new LoginForm();
     }
     public boolean isUserLoggedIn() {
         driver.findElement(logoutLink);
+        LOGGER.info("User is logged in");
         return true;
     }
 
     public LoginForm clickLogoutLink(){
         driver.findElement(logoutLink).click();
+        LOGGER.info("Click on logout link");
         return new LoginForm();
-    }
-    public String getLoginLabel() {
-        return driver.findElement(loginMessage).getAttribute("textContent");
     }
 
 
@@ -70,11 +78,17 @@ public class MainPage extends Page{
         public void fillRegisterForm(User user){
 
             driver.findElement(username).sendKeys(user.getUsername());
+            LOGGER.info("Fill input 'username' with value: {}",user.getUsername());
             driver.findElement(firstname).sendKeys(user.getFirstname());
+            LOGGER.info("Fill input 'firstname' with value: {}",user.getFirstname());
             driver.findElement(lastname).sendKeys(user.getLastname());
+            LOGGER.info("Fill input 'lastname' with value: {}",user.getLastname());
             driver.findElement(email).sendKeys(user.getEmail());
+            LOGGER.info("Fill input 'email' with value: {}",user.getEmail());
             driver.findElement(password).sendKeys(user.getPassword());
+            LOGGER.info("Fill input 'password' with value: {}",user.getPassword());
             driver.findElement(registerButton).click();
+            LOGGER.info("Click on register button");
             WaitUtils.waitUntilElementIsVisible(driver, logoutLink);
         }
 
@@ -87,8 +101,11 @@ public class MainPage extends Page{
         public void fillLoginForm(User user){
 
             driver.findElement(username).sendKeys(user.getUsername());
+            LOGGER.info("Fill input 'username' with value: {}",user.getUsername());
             driver.findElement(password).sendKeys(user.getPassword());
+            LOGGER.info("Fill input 'password' with value: {}",user.getPassword());
             driver.findElement(loginButton).click();
+            LOGGER.info("Click on Login button");
         }
 
     }
