@@ -45,8 +45,9 @@ public class MainPage extends Page{
         WaitUtils.waitUntilElementIsVisible(driver, loginModal);
         return new LoginForm();
     }
-    public void isUserLoggedIn() {
+    public boolean isUserLoggedIn() {
         driver.findElement(logoutLink);
+        return true;
     }
 
     public LoginForm clickLogoutLink(){

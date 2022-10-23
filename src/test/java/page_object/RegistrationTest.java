@@ -1,5 +1,6 @@
 package page_object;
 
+import org.assertj.core.api.Assertions;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,7 +24,7 @@ public class RegistrationTest extends BaseTest {
         wait.until(visibilityOfElementLocated(By.id("register-modal")));
         registerForm.fillRegisterForm(User.builder().buildRandomUser());
 
-        Assert.assertEquals(driver.findElement(By.id("registration-message")).getAttribute("textContent"),"Registration and login successful.");
+        Assertions.assertThat(mainPage.isUserLoggedIn()).isTrue();
     }
 
 }
