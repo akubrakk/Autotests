@@ -1,23 +1,13 @@
-package lesson16;
+package page_object;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.assertj.core.api.Assertions;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ua.ithillel.ui.BaseTest;
-import ui.browser.WebDriverFactory;
 import ui.model.User;
 import ui.pages.MainPage;
 import ui.pages.MainPageConstants;
-import ui.utils.ConfigProvider;
-
-import java.time.Duration;
-import java.util.Random;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
+import ui.utils.WaitUtils;
 
 public class LoginTest extends BaseTest {
 
@@ -36,8 +26,10 @@ public class LoginTest extends BaseTest {
 
         MainPage.LoginForm loginForm = mainPage.clickLoginLink();
         loginForm.fillLoginForm(user);
+        WaitUtils.waitUntilElementIsVisible(driver, mainPage.loggedUserLink);
 
-        Assert.assertEquals(mainPage.getLoginLabel(), MainPageConstants.LOGIN_SUCCESSFUL);
+        Assertions.assertThat(driver.findElement(mainPage.loggedUserLink).getAttribute("textContent"))
+                .isEqualTo("Logged in as %s %s", user.getFirstname(), user.getLastname());
 
     }
 

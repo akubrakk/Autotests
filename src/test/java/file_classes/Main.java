@@ -1,4 +1,4 @@
-package input_output_streams;
+package file_classes;
 
 import java.io.File;
 import java.io.IOException;
