@@ -12,7 +12,7 @@ import ui.utils.WaitUtils;
 public class LoginTest extends BaseTest {
 
 
-    @Test
+    @Test(description = "Login as existed user")
     public void loginAsExistedUser() {
 
         MainPage mainPage = new MainPage(driver);
@@ -32,6 +32,5 @@ public class LoginTest extends BaseTest {
                 .isEqualTo("Logged in as %s %s", user.getFirstname(), user.getLastname());
 
     }
-
 
 }
