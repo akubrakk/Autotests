@@ -14,6 +14,7 @@ public class MainPage extends Page{
     private By logoutLink = By.id("logout");
     private By loginMessage = By.id("login-message");
     private By registerModal = By.id("register-modal");
+    public By loggedUserLink = By.xpath("//li[@id='howdy']/a");
 
 
     public MainPage(WebDriver driver) {
@@ -43,6 +44,9 @@ public class MainPage extends Page{
         driver.findElement(loginLink).click();
         WaitUtils.waitUntilElementIsVisible(driver, loginModal);
         return new LoginForm();
+    }
+    public void isUserLoggedIn() {
+        driver.findElement(logoutLink);
     }
 
     public LoginForm clickLogoutLink(){
