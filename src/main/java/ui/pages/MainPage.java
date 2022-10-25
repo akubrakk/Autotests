@@ -77,9 +77,8 @@ public class MainPage extends Page{
         private By password = By.id("register-password-modal");
         private By registerButton = By.xpath("//*[@id=\"register-modal\"]/div/div/div[2]/form/p/button");
 
-        @Step("Fill the register form with data: username - '{user.getUsername}',firstname - '{user.getFirstname}', lastname - '{user.getLastname}', email- '{user.getEmail}', password '{user.getPassword}'")
+        @Step("Fill the register form with data: username - '{user.username}',firstname - '{user.firstname}', lastname - '{user.lastname}', email- '{user.email}', password '{user.password}'")
         public void fillRegisterForm(User user){
-
             driver.findElement(username).sendKeys(user.getUsername());
             LOGGER.info("Fill input 'username' with value: {}",user.getUsername());
             driver.findElement(firstname).sendKeys(user.getFirstname());
